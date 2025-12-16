@@ -70,6 +70,7 @@ async function seed() {
   const order1 = await createOrder({
     user_id: alyssa.id,
     date: "2025-12-15",
+    note: "Alyssa's first order",
   });
   await Promise.all([
     addProductToOrder({
