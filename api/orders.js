@@ -29,6 +29,14 @@ router.get(
   async (req, res, next) => {
     const orderId = req.params.id;
 
+    const order = await getOrderById(orderId);
+    if (!order) {
+      return res.status(404).send("Order not found.");
+    }
+    if (order.user_id !== req.user.id) {
+      return res.status(403).send("Unauthorized access to order.");
+    }
+
     const products = await getProductsByOrderId(orderId);
     res.send(products);
   }

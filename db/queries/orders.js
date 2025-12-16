@@ -17,7 +17,7 @@ export async function getOrdersByUserId(user_id) {
     WHERE user_id = $1;
     `;
   const response = await db.query(SQL, [user_id]);
-  return response.rows[0];
+  return response.rows;
 }
 
 export async function getOrderById(id) {
