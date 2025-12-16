@@ -11,3 +11,5 @@ export function createToken(payload) {
 export function verifyToken(token) {
   return jwt.verify(token, SECRET);
 }
+
+console.log("JWT_SECRET loaded?", Boolean(process.env.JWT_SECRET));

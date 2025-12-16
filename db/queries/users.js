@@ -12,3 +12,13 @@ export async function createUser(user) {
   const response = await db.query(SQL, [user.username, user.password]);
   return response.rows[0];
 }
+
+export async function getUserById(id) {
+  const SQL = `
+    SELECT id, username
+    FROM users
+    WHERE id = $1
+    `;
+  const response = await db.query(SQL, [id]);
+  return response.rows[0];
+}
