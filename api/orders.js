@@ -2,6 +2,7 @@ import express from "express";
 import getUserFromToken from "../middleware/getUserFromToken.js";
 import { getOrdersByUserId, getOrderById } from "../db/queries/orders.js";
 import requireUser from "#middleware/requireUser";
+import { getProductsByOrderId } from "../db/queries/order_products.js";
 
 const router = express.Router();
 
@@ -20,5 +21,17 @@ router.get("/:id", getUserFromToken, requireUser, async (req, res, next) => {
 
   res.send(order);
 });
+
+router.get(
+  "/:id/products",
+  getUserFromToken,
+  requireUser,
+  async (req, res, next) => {
+    const orderId = req.params.id;
+
+    const products = await getProductsByOrderId(orderId);
+    res.send(products);
+  }
+);
 
 export default router;
