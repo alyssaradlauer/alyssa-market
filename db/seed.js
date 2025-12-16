@@ -1,6 +1,8 @@
 import db from "#db/client";
 import { createUser } from "#db/queries/users";
 import { createProduct } from "#db/queries/products";
+import { createOrder } from "#db/queries/orders";
+import { addProductToOrder } from "#db/queries/order_products";
 await db.connect();
 await seed();
 await db.end();
@@ -12,7 +14,7 @@ async function seed() {
     createUser({ username: "alyssa", password: "barnacle" }),
     createUser({ username: "danae", password: "giraffe" }),
   ]);
-  await Promise.all([
+  const products = await Promise.all([
     createProduct({
       title: "Parmigiano Reggiano",
       description: "aged, nutty Italian cheese",
@@ -62,6 +64,38 @@ async function seed() {
       title: "Beef Stock",
       description: "slow-simmered stock",
       price: 8.25,
+    }),
+  ]);
+
+  const order1 = await createOrder({
+    user_id: alyssa.id,
+    date: "2025-12-15",
+  });
+  await Promise.all([
+    addProductToOrder({
+      order_id: order1.id,
+      product_id: products[0].id,
+      quantity: 1,
+    }),
+    addProductToOrder({
+      order_id: order1.id,
+      product_id: products[2].id,
+      quantity: 1,
+    }),
+    addProductToOrder({
+      order_id: order1.id,
+      product_id: products[3].id,
+      quantity: 2,
+    }),
+    addProductToOrder({
+      order_id: order1.id,
+      product_id: products[5].id,
+      quantity: 1,
+    }),
+    addProductToOrder({
+      order_id: order1.id,
+      product_id: products[8].id,
+      quantity: 1,
     }),
   ]);
 }
