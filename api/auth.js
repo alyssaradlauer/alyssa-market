@@ -9,6 +9,7 @@ import getUserFromToken from "#middleware/getUserFromToken";
 import requireUser from "#middleware/requireUser";
 
 import { createToken } from "#utils/jwt";
+import { createUser } from "#db/queries/users";
 
 export async function authenticate(credentials) {
   const SQL = `
@@ -44,4 +45,10 @@ router.post("/login", async (req, res, next) => {
 
 router.get("/me", getUserFromToken, requireUser, (req, res, next) => {
   res.send(req.user);
+});
+
+router.post("/register", async (req, res, next) => {
+  const user = await createUser(req.body);
+  const token = createToken({ id: user.id });
+  res.status(201).send({ token });
 });
