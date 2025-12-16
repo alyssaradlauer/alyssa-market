@@ -1,8 +1,9 @@
 -- TODO
-DROP TABLE IF EXISTS order_products;
-DROP TABLE IF EXISTS orders;
-DROP TABLE IF EXISTS products;
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS orders_products CASCADE;
+DROP TABLE IF EXISTS order_products CASCADE; --because I accidentally had the entire table named this beforehand
+DROP TABLE IF EXISTS orders CASCADE;
+DROP TABLE IF EXISTS products CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
 
 
 
@@ -28,7 +29,7 @@ CREATE TABLE orders(
     user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE
 );
 
-CREATE TABLE order_products(
+CREATE TABLE orders_products(
     order_id INTEGER NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
     product_id INTEGER NOT NULL REFERENCES products(id) ON DELETE CASCADE,
     quantity INTEGER NOT NULL,

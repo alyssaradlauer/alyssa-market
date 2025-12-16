@@ -1,7 +1,10 @@
 import express from "express";
-const app = express();
-export default app;
+
 import apiRouter from "#api";
 
+const app = express();
+
 app.use(express.json());
-app.use("/api", apiRouter);
+app.use("/", apiRouter);
+
+export default app;

@@ -2,7 +2,7 @@ import db from "#db/client";
 import { createUser } from "#db/queries/users";
 import { createProduct } from "#db/queries/products";
 import { createOrder } from "#db/queries/orders";
-import { addProductToOrder } from "#db/queries/order_products";
+import { addProductToOrder } from "#db/queries/orders_products";
 await db.connect();
 await seed();
 await db.end();

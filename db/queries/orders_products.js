@@ -2,7 +2,7 @@ import db from "#db/client";
 
 export async function addProductToOrder({ order_id, product_id, quantity }) {
   const SQL = `
-    INSERT INTO order_products (order_id, product_id, quantity)
+    INSERT INTO orders_products (order_id, product_id, quantity)
     VALUES ($1, $2, $3)
     RETURNING *
     `;
@@ -18,10 +18,10 @@ export async function getProductsByOrderId(orderId) {
       products.description,
       products.price,
       order_products.quantity
-    FROM order_products
+    FROM orders_products
     JOIN products
-      ON order_products.product_id = products.id
-    WHERE order_products.order_id = $1;
+      ON orders_products.product_id = products.id
+    WHERE orders_products.order_id = $1;
     `;
   const response = await db.query(SQL, [orderId]);
   return response.rows;

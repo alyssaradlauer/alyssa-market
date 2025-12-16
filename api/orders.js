@@ -2,7 +2,7 @@ import express from "express";
 import getUserFromToken from "../middleware/getUserFromToken.js";
 import { getOrdersByUserId, getOrderById } from "../db/queries/orders.js";
 import requireUser from "#middleware/requireUser";
-import { getProductsByOrderId } from "../db/queries/order_products.js";
+import { getProductsByOrderId } from "../db/queries/orders_products.js";
 
 const router = express.Router();
 

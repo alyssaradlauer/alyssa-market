@@ -5,7 +5,7 @@ import ordersRouter from "./api/orders.js";
 
 const router = express.Router();
 
-router.use("/auth", authRouter);
+router.use("/users", authRouter);
 
 router.use("/products", productsRouter);
 
