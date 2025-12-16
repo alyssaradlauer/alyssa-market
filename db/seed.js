@@ -1,6 +1,6 @@
 import db from "#db/client";
 import { createUser } from "#db/queries/users";
-
+import { createProduct } from "#db/queries/products";
 await db.connect();
 await seed();
 await db.end();
@@ -11,5 +11,57 @@ async function seed() {
   const [alyssa, danae] = await Promise.all([
     createUser({ username: "alyssa", password: "barnacle" }),
     createUser({ username: "danae", password: "giraffe" }),
+  ]);
+  await Promise.all([
+    createProduct({
+      title: "Parmigiano Reggiano",
+      description: "aged, nutty Italian cheese",
+      price: 24.99,
+    }),
+    createProduct({
+      title: "Truffle Oil",
+      description: "truffle-infused oil",
+      price: 27.5,
+    }),
+    createProduct({
+      title: "Wagyu Beef",
+      description: "highly marbled, A5",
+      price: 65.7,
+    }),
+    createProduct({
+      title: "Sourdough",
+      description: "naturally fermented, tangy bread",
+      price: 15.99,
+    }),
+    createProduct({
+      title: "Short Ribs",
+      description: "richly marbled",
+      price: 32.56,
+    }),
+    createProduct({
+      title: "Chanterelle Mushrooms",
+      description: "delicate, earthy mushrooms",
+      price: 18.75,
+    }),
+    createProduct({
+      title: "Saffron Rice",
+      description: "fragrant saffron-infused rice",
+      price: 14.25,
+    }),
+    createProduct({
+      title: "Balsamic Vinegar",
+      description: "dry aged, complex flavor",
+      price: 11.99,
+    }),
+    createProduct({
+      title: "Heirloom Tomatoes",
+      description: "vine-ripened red tomatoes",
+      price: 9.5,
+    }),
+    createProduct({
+      title: "Beef Stock",
+      description: "slow-simmered stock",
+      price: 8.25,
+    }),
   ]);
 }
