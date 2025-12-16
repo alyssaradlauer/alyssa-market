@@ -1,8 +1,10 @@
 import express from "express";
-const router = express.Router();
-export default router;
+import { getAllProducts, getProductById } from "../db/queries/products.js";
+import getUserFromToken from "../middleware/getUserFromToken.js";
+import requireUser from "../middleware/requireUser.js";
+import { getOrdersByProductIdForUser } from "../db/queries/orders.js";
 
-import { getAllProducts, getProductById } from "#db/queries/products";
+const router = express.Router();
 
 router.get("/", async (req, res, next) => {
   const products = await getAllProducts();
@@ -11,5 +13,24 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:id", async (req, res, next) => {
   const product = await getProductById(req.params.id);
+  if (!product) return res.status(404).send("Product not found.");
   res.send(product);
 });
+
+router.get(
+  "/:id/orders",
+  getUserFromToken,
+  requireUser,
+  async (req, res, next) => {
+    const product = await getProductById(req.params.id);
+    if (!product) return res.status(404).send("Product not found.");
+
+    const orders = await getOrdersByProductIdForUser(
+      req.params.id,
+      req.user.id
+    );
+    res.send(orders);
+  }
+);
+
+export default router;

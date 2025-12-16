@@ -1,8 +1,8 @@
-import db from "#db/client";
-import { createUser } from "#db/queries/users";
-import { createProduct } from "#db/queries/products";
-import { createOrder } from "#db/queries/orders";
-import { addProductToOrder } from "#db/queries/orders_products";
+import db from "./client.js";
+import { createUser } from "./queries/users.js";
+import { createProduct } from "./queries/products.js";
+import { createOrder } from "./queries/orders.js";
+import { addProductToOrder } from "./queries/orders_products.js";
 await db.connect();
 await seed();
 await db.end();

@@ -1,4 +1,4 @@
-import db from "#db/client";
+import db from "../client.js";
 
 export async function addProductToOrder({ order_id, product_id, quantity }) {
   const SQL = `
@@ -17,7 +17,7 @@ export async function getProductsByOrderId(orderId) {
       products.title,
       products.description,
       products.price,
-      order_products.quantity
+      orders_products.quantity
     FROM orders_products
     JOIN products
       ON orders_products.product_id = products.id
